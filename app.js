@@ -16,8 +16,11 @@ app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/expense", expenseRoutes);
 
+User.hasMany(Expense);
+Expense.belongsTo(User);
+
 sequelize
-  //   .sync({ force: true })
+  // .sync({ force: true })
   .sync()
   .then(() => {
     console.log("database is connected");

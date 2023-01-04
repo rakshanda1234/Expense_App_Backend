@@ -1,18 +1,18 @@
 const Expense = require("../models/expenses");
 
-const addexpense = async (req, res, next) => {
+exports.addExpense = async (req, res, next) => {
+  const { expenseamount, description, category } = req.body;
   try {
-    const expenseamount = req.body.expenseamount;
-    const description = req.body.description;
-    const category = req.body.category;
-
-    const data = await Expense.create({
-      expenseamount: expenseamount,
-      description: description,
-      category: category,
+    if (!expenseamount || !description || !category) {
+      return res.status(400).json({ message: "no fields can be empty" });
+    }
+    const data = await req.user.createExpense({
+      expenseamount,
+      description,
+      category,
     });
 
-    res.status(200).json({ newExpenseDetail: data });
+    res.status(201).json({ newExpenseDetail: data });
   } catch (err) {
     console.log("check", err);
     res.status(500).json({
@@ -21,29 +21,40 @@ const addexpense = async (req, res, next) => {
   }
 };
 
-const getexpense = (req, res) => {
-  Expense.findAll()
-    .then((expense) => {
-      return res.status(200).json({ expense, success: true });
-    })
-    .catch((err) => {
-      return res.status(500).json({ error: err, success: false });
-    });
+exports.getExpenses = async (req, res, next) => {
+  const { expenseamount, description, category } = req.body;
+  try {
+    let data = await req.user.getExpenses();
+    res.status(200).json({ data });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: err });
+  }
 };
 
-const deleteexpense = async (req, res) => {
+exports.deleteExpense = async (req, res, next) => {
   try {
-    const eid = req.params.expenseid;
-    await Expense.destroy({ where: { Id: eid } });
-    return res.status(200);
+    const userId = req.params.userId;
+    if (!userId) {
+      res.status(400).json({ error: "id missing" });
+    }
+
+    // await Expense.destroy({ where: { Id: eid } });
+    // return res.status(200);
+
+    await req.user.getExpenses({ where: { id: userId } }).then((expense) => {
+      let findExpenses = expense[0];
+      findExpenses.destroy();
+      res.status(200);
+    });
   } catch (err) {
     console.log("delete", err);
     res.status(500).json(err);
   }
 };
 
-module.exports = {
-  deleteexpense,
-  getexpense,
-  addexpense,
-};
+// module.exports = {
+//   deleteExpense,
+//   getExpenses,
+//   addExpense,
+// };
