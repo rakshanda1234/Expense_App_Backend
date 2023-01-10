@@ -21,6 +21,10 @@ const User = sequelize.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  ispremiumuser: {
+    type: Sequelize.BOOLEAN,
+    default: false,
+  },
 });
 
 module.exports = User;
