@@ -31,8 +31,8 @@ User.hasMany(Order);
 Order.belongsTo(User);
 
 sequelize
-  .sync({ force: true })
-  // .sync()
+  // .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("database is connected");
   })
