@@ -32,30 +32,34 @@ const purchasepremium = async (req, res) => {
 const updateTransactionStatus = async (req, res) => {
   try {
     const { payment_id, order_id } = req.body;
-    // Order.findOne({ where: { orderid: order_id } })
-    //   .then((order) => {
-    //     order
-    //       .update({ paymentid: payment_id, status: "SUCCESSFUL" })
-    //       .then(() => {
-    //         req.user.update({ ispremiumuser: true });
-    //         return res
-    //           .status(202)
-    //           .json({ sucess: true, message: "Transaction Successful" });
+    //     Order.findOne({ where: { orderid: order_id } })
+    //       .then((order) => {
+    //         order
+    //           .update({ paymentid: payment_id, status: "SUCCESSFUL" })
+    //           .then(() => {
+    //             req.user.update({ ispremiumuser: true });
+    //             return res
+    //               .status(202)
+    //               .json({ sucess: true, message: "Transaction Successful" });
+    //           })
+    //           .catch((err) => {
+    //             throw new Error(err);
+    //           });
     //       })
     //       .catch((err) => {
     //         throw new Error(err);
     //       });
-    //   })
-    // .catch((err) => {
-    //   throw new Error(err);
-    // });
-
+    //   } catch (err) {
+    //     console.log(err);
+    //     res.status(403).json({ error: err, message: "Something went wrong" });
+    //   }
+    // };
     const order = await Order.findOne({ where: { orderId: order_id } });
     const promise1 = order.update({
       paymentid: payment_id,
       status: "SUCCESSFUL",
     });
-    const promise2 = order.update({ ispremiumuser: true });
+    const promise2 = req.user.update({ ispremiumuser: true });
 
     Promise.all([promise1, promise2])
       .then(() => {
@@ -68,7 +72,7 @@ const updateTransactionStatus = async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.status(403).json({ errpr: err, message: "Sometghing went wrong" });
+    res.status(403).json({ error: err, message: "Sometghing went wrong" });
   }
 };
 
