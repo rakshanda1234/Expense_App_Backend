@@ -73,7 +73,11 @@ exports.login = async (req, res) => {
         }
         return res
           .status(200)
-          .json({ message: "login success", token: generateToken(user[0].id) });
+          .json({
+            message: "login success",
+            token: generateToken(user[0].id),
+            isPremium: user[0].ispremiumuser,
+          });
       });
     } else {
       return res.status(207).json({ message: "Invalid Email " });

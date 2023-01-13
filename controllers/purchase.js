@@ -54,6 +54,8 @@ const updateTransactionStatus = async (req, res) => {
     //     res.status(403).json({ error: err, message: "Something went wrong" });
     //   }
     // };
+
+    //using promises for faster result
     const order = await Order.findOne({ where: { orderId: order_id } });
     const promise1 = order.update({
       paymentid: payment_id,
