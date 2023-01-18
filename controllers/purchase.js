@@ -1,6 +1,12 @@
 const Razorpay = require("razorpay");
-
 const Order = require("../models/orders");
+const User = require("../models/user");
+// function generateToken(id, name, ispremiumuser) {
+//   return jwt.sign(
+//     { userId: id, name: name, ispremiumuser: ispremiumuser },
+//     process.env.TOKEN
+//   );
+// }
 
 const purchasepremium = async (req, res) => {
   try {
@@ -31,16 +37,18 @@ const purchasepremium = async (req, res) => {
 
 const updateTransactionStatus = async (req, res) => {
   try {
-    const { payment_id, order_id } = req.body;
+    //     const { payment_id, order_id } = req.body;
     //     Order.findOne({ where: { orderid: order_id } })
     //       .then((order) => {
     //         order
     //           .update({ paymentid: payment_id, status: "SUCCESSFUL" })
     //           .then(() => {
     //             req.user.update({ ispremiumuser: true });
-    //             return res
-    //               .status(202)
-    //               .json({ sucess: true, message: "Transaction Successful" });
+    //             return res.status(202).json({
+    //               sucess: true,
+    //               message: "Transaction Successful",
+    //               // token: generateAccessToken(userId, undefined, true),
+    //             });
     //           })
     //           .catch((err) => {
     //             throw new Error(err);
@@ -56,6 +64,8 @@ const updateTransactionStatus = async (req, res) => {
     // };
 
     //using promises for faster result
+    const { payment_id, order_id } = req.body;
+
     const order = await Order.findOne({ where: { orderId: order_id } });
     const promise1 = order.update({
       paymentid: payment_id,
@@ -74,7 +84,7 @@ const updateTransactionStatus = async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.status(403).json({ error: err, message: "Sometghing went wrong" });
+    res.status(403).json({ error: err, message: "Something went wrong" });
   }
 };
 

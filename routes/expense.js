@@ -32,4 +32,9 @@ router.get(
   expenseController.getAllUsers
 );
 
+router.get(
+  "/getInfo/:loadUserId",
+  middlewareAuthentication.authentication,
+  expenseController.getLeaderBoardUser
+);
 module.exports = router;

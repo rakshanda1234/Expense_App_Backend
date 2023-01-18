@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
-
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 
 const app = express();
@@ -14,7 +14,7 @@ const Forgotpassword = require("./models/forgotPassword");
 const userRoutes = require("./routes/user");
 const expenseRoutes = require("./routes/expense");
 const purchaseRoutes = require("./routes/purchaseRoutes");
-const forgotRoutes = require("./routes/password");
+const ForgotPasswordRoutes = require("./routes/forgotpassword");
 
 dotenv.config();
 app.use(cors());
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/expense", expenseRoutes);
 app.use("/purchase", purchaseRoutes);
-app.use("/password", forgotRoutes);
+app.use("/password", ForgotPasswordRoutes);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);

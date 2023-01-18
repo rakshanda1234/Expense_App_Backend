@@ -71,13 +71,10 @@ exports.login = async (req, res) => {
         if (!match) {
           return res.status(207).json({ message: "password incorrect" });
         }
-        return res
-          .status(200)
-          .json({
-            message: "login success",
-            token: generateToken(user[0].id),
-            isPremium: user[0].ispremiumuser,
-          });
+        return res.status(200).json({
+          message: "login success",
+          token: generateToken(user[0].id, user[0].name, user[0].ispremiumuser),
+        });
       });
     } else {
       return res.status(207).json({ message: "Invalid Email " });
@@ -86,10 +83,16 @@ exports.login = async (req, res) => {
     res.status(500).json(error);
   }
 };
-function generateToken(id) {
-  return jwt.sign({ userId: id }, "secretKey");
+function generateToken(id, name, ispremiumuser) {
+  return jwt.sign({ userId: id, name: name, ispremiumuser }, "secretKey");
 }
 
+// function generateToken(id, name, ispremiumuser) {
+//   return jwt.sign(
+//     { userId: id, name: name, ispremiumuser: ispremiumuser },
+//     process.env.TOKEN
+//   );
+// }
 exports.getUsers = async (req, res, next) => {
   console.log("Getting users");
   try {
