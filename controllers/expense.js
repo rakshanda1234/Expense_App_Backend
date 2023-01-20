@@ -1,8 +1,42 @@
 const Expense = require("../models/expenses");
 const User = require("../models/user");
 
+const AWS = require("aws-sdk");
+
+const Userservices = require("../service/userservices");
+
+const S3services = require("../service/s3services");
+
+exports.downloadExpense = async (req, res, next) => {
+  try {
+    const expenses = await Userservices.getExpenses(req);
+    console.log(expenses);
+
+    const stringyfyExpenses = JSON.stringify(expenses);
+    //for creating a txt file we have to stringify it
+    //because is an array rightnow
+
+    const userId = req.user.id;
+
+    const filename = `Expense${userId}/${new Date()}.txt`;
+
+    const fileURL = await S3services.uploadToS3(stringyfyExpenses, filename);
+
+    const downloadUrlData = await req.user.createDownloadurl({
+      fileURL: fileURL,
+      filename,
+    });
+    console.log(req);
+
+    res.status(200).json({ fileURL, downloadUrlData, success: true });
+  } catch (error) {
+    res.status(500).json({ fileURL: "", success: false });
+  }
+};
+
 exports.getAllUsers = async (req, res, next) => {
   try {
+    console.log(req.user.ispremiumuser);
     if (req.user.ispremiumuser) {
       console.log("into getall Users");
       let leaderboard = [];
@@ -102,8 +136,16 @@ exports.deleteExpense = async (req, res, next) => {
   }
 };
 
-// module.exports = {
-//   deleteExpense,
-//   getExpenses,
-//   addExpense,
-// };
+exports.downloadAllUrl = async (req, res, next) => {
+  try {
+    let urls = await req.user.getDownloadurls();
+    if (!urls) {
+      res
+        .status(404)
+        .json({ message: "no urls found with this user", success: false });
+    }
+    res.status(200).json({ urls, success: true });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};

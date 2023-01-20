@@ -50,12 +50,13 @@ exports.getForgotpassword = async (req, res, next) => {
 exports.getResetpassword = async (req, res, next) => {
   const id = req.param.id;
 
-  Forgotpassword.findOne({ where: { id } }).then((forgotpasswordrequest) => {
-    if (forgotpasswordrequest) {
-      return res.status(404).json("User doesnt exist");
-    }
-    forgotpasswordrequest.update({ active: false });
-    res.status(200).send(`<html>
+  await Forgotpassword.findOne({ where: { id } }).then(
+    (forgotpasswordrequest) => {
+      if (forgotpasswordrequest) {
+        return res.status(404).json("User doesnt exist");
+      }
+      forgotpasswordrequest.update({ active: false });
+      res.status(200).send(`<html>
 <script>
 function formsubmitted(e){
   e.preventDefault();
@@ -70,8 +71,9 @@ function formsubmitted(e){
 
 </form>
 </html>`);
-    res.end();
-  });
+      res.end();
+    }
+  );
 };
 
 exports.getUpdatepassword = async (req, res) => {
