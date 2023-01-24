@@ -105,10 +105,38 @@ exports.addExpense = async (req, res, next) => {
 };
 
 exports.getExpenses = async (req, res, next) => {
-  // const { expenseamount, description, category } = req.body;
+  const { expenseamount, description, category } = req.body;
+
+  let page = req.params.pageNo || 1;
+  console.log(page);
+  console.log("---------------------------");
+  let Items_Per_Page = +req.body.Items_Per_Page || 5;
+
+  console.log("************************************");
+  console.log(Items_Per_Page);
+  let totalItems;
   try {
-    let data = await req.user.getExpenses();
-    res.status(200).json({ data });
+    // let data = await req.user.getExpenses();
+    // res.status(200).json({ data });
+
+    let count = await Expense.count({ where: { userId: req.user.id } });
+    totalItems = count;
+
+    let data = await req.user.getExpenses({
+      offset: (page - 1) * Items_Per_Page,
+      limit: Items_Per_Page,
+    });
+    res.status(200).json({
+      data,
+      info: {
+        currentPage: page,
+        hasNextPage: totalItems > page * Items_Per_Page,
+        hasPreviousPage: page > 1,
+        nextPage: +page + 1,
+        PreviousPage: +page - 1,
+        lastPage: Math.ceil(totalItems / Items_Per_Page),
+      },
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: err });

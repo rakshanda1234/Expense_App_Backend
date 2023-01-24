@@ -12,8 +12,14 @@ router.post("/signup", userController.signup);
 
 router.post("/login", userController.login);
 
-router.get(
-  "/getExpenses",
+// router.get(
+//   "/getExpenses/:pageNo",
+//   userAuthentication.authentication,
+//   expenseController.getExpenses
+// );
+
+router.post(
+  "/getExpenses/:pageNo",
   userAuthentication.authentication,
   expenseController.getExpenses
 );
@@ -25,7 +31,7 @@ router.post(
 );
 
 router.delete(
-  "/deleteExpense/userId",
+  "/deleteExpense/:userId",
   userAuthentication.authentication,
   expenseController.deleteExpense
 );
