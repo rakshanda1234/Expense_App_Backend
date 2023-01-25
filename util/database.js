@@ -1,9 +1,5 @@
 const Sequelize = require("sequelize");
 
-// const sequelize = new Sequelize("expense-app", "root", "root", {
-//   dialect: "mysql",
-//   host: "localhost",
-// });
 require("dotenv").config();
 
 const sequelize = new Sequelize(

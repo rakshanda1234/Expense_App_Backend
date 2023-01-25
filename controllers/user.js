@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
   }
 };
 function generateToken(id, name, ispremiumuser) {
-  return jwt.sign({ userId: id, name: name, ispremiumuser }, "secretKey");
+  return jwt.sign({ userId: id, name: name, ispremiumuser }, process.env.TOKEN);
 }
 
 // function generateToken(id, name, ispremiumuser) {
