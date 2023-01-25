@@ -1,8 +1,14 @@
 const express = require("express");
+const fs = require("fs");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+
+const helmet = require("helmet");
+const compression = require("compression");
+const morgan = require("morgan"); //morgan is a Node. js and Express middleware to log HTTP requests and errors, and simplifies the process
+const accessLogStream = fs.createWriteStream("access.log", { flag: "a" });
 
 const app = express();
 const sequelize = require("./util/database");
@@ -16,8 +22,14 @@ const userRoutes = require("./routes/user");
 const expenseRoutes = require("./routes/expense");
 const purchaseRoutes = require("./routes/purchaseRoutes");
 const ForgotPasswordRoutes = require("./routes/forgotpassword");
+const { env } = require("process");
 
 dotenv.config();
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan("combined", { stream: accessLogStream }));
+
 app.use(cors());
 app.use(userRoutes);
 
@@ -50,4 +62,4 @@ sequelize
     console.log(err);
   });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
