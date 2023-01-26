@@ -87,12 +87,6 @@ function generateToken(id, name, ispremiumuser) {
   return jwt.sign({ userId: id, name: name, ispremiumuser }, process.env.TOKEN);
 }
 
-// function generateToken(id, name, ispremiumuser) {
-//   return jwt.sign(
-//     { userId: id, name: name, ispremiumuser: ispremiumuser },
-//     process.env.TOKEN
-//   );
-// }
 exports.getUsers = async (req, res, next) => {
   console.log("Getting users");
   try {
