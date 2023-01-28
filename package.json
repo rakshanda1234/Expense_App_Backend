@@ -1,6 +1,7 @@
 {
   "name": "expense_app_backend",
   "version": "1.0.0",
+  "private": "true",
   "description": "backend of expence tracker appp",
   "main": "app.js",
   "scripts": {
