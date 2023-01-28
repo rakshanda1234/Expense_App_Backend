@@ -9,7 +9,7 @@ const authentication = (req, res, next) => {
     console.log("userId>>>", user.userId);
     User.findByPk(user.userId)
       .then((user) => {
-        console.log(JSON.stringify(user));
+        // console.log(JSON.stringify(user));
         req.user = user;
         next();
       })
