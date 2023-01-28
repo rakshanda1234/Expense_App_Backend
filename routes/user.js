@@ -12,12 +12,6 @@ router.post("/signup", userController.signup);
 
 router.post("/login", userController.login);
 
-// router.get(
-//   "/getExpenses/:pageNo",
-//   userAuthentication.authentication,
-//   expenseController.getExpenses
-// );
-
 router.post(
   "/getExpenses/:pageNo",
   userAuthentication.authentication,

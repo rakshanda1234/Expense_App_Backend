@@ -112,7 +112,6 @@ exports.getExpenses = async (req, res, next) => {
   // console.log("---------------------------");
   let Items_Per_Page = +req.body.Items_Per_Page || 5;
 
-  // console.log(Items_Per_Page);
   let totalItems;
   try {
     // let data = await req.user.getExpenses();

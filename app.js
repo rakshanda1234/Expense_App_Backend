@@ -9,7 +9,8 @@ const dotenv = require("dotenv");
 
 const helmet = require("helmet");
 const compression = require("compression");
-const morgan = require("morgan"); //morgan is a Node. js and Express middleware to log HTTP requests and errors, and simplifies the process
+const morgan = require("morgan");
+//morgan is a Node. js and Express middleware to log HTTP requests and errors, and simplifies the process
 const accessLogStream = fs.createWriteStream("access.log", { flag: "a" });
 
 const app = express();

@@ -63,7 +63,7 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(password);
+    // console.log(password);
     const user = await User.findAll({ where: { email } });
 
     if (user.length > 0) {

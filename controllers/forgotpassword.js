@@ -12,7 +12,7 @@ exports.getForgotpassword = async (req, res, next) => {
     if (user) {
       const id = uuid.v4();
 
-      console.log(id);
+      // console.log(id);
       user.createForgotpassword({ id, active: true }).catch((err) => {
         throw new Error(err);
       });
