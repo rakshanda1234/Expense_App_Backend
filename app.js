@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const fs = require("fs");
 const https = require("https");
@@ -42,6 +43,10 @@ app.use("/expense", expenseRoutes);
 app.use("/purchase", purchaseRoutes);
 app.use("/password", ForgotPasswordRoutes);
 
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, `public/${req.url}`));
+});
+
 User.hasMany(Expense);
 Expense.belongsTo(User);
 
@@ -64,4 +69,4 @@ sequelize
     console.log(err);
   });
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 3000);
