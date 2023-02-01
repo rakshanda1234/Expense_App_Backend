@@ -44,7 +44,7 @@ download.addEventListener("click", async (event) => {
   event.preventDefault();
   try {
     let response = await axios.get(
-      "http://18.183.28.71:3000/expense/download",
+      "http://35.78.100.99:3000/expense/download",
       {
         headers: { Authorization: token },
       }

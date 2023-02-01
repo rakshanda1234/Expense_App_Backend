@@ -10,7 +10,7 @@ function forgotPass(event) {
   console.log("1995");
 
   axios
-    .post("http://18.183.28.71:3000/password/forgotpassword", obj, {
+    .post("http://35.78.100.99:3000/password/forgotpassword", obj, {
       headers: { Authorization: token },
     })
     .then((response) => {

@@ -18,7 +18,7 @@ function signUp(e) {
   //   alert("fill all the fields");
   // } else {
   axios
-    .post("http://18.183.28.71:3000/user/signup", obj)
+    .post("http://35.78.100.99:3000/user/signup", obj)
     .then((response) => {
       console.log(response);
       if (response.status === 201) {

@@ -9,7 +9,7 @@ function login(e) {
 
   console.log(loginDetails);
   axios
-    .post("http://18.183.28.71:3000/user/login", loginDetails)
+    .post("http://35.78.100.99:3000/user/login", loginDetails)
     .then((response) => {
       alert(response.data.message);
       localStorage.setItem("token", response.data.token);

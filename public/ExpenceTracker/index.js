@@ -12,7 +12,7 @@ function saveToStorage(event) {
   };
 
   axios
-    .post("http://18.183.28.71:3000/user/addExpense", obj, {
+    .post("http://35.78.100.99:3000/user/addExpense", obj, {
       headers: { Authorization: token },
     })
     .then((response) => {
@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   let page = 1;
 
   let response = await axios.post(
-    `http://18.183.28.71:3000/user/getExpenses/${page}`,
+    `http://35.78.100.99:3000/user/getExpenses/${page}`,
     { Items_Per_Page: Items_Per_Page },
     { headers: { Authorization: token } }
   );
@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   }
 
   // axios
-  //   .get("http://18.183.28.71:3000/user/getExpenses", {
+  //   .get("http://35.78.100.99:3000/user/getExpenses", {
   //     headers: { Authorization: token },
   //   })
   //   .then((response) => {
@@ -112,7 +112,7 @@ function deleteUser(userId) {
 
   axios
 
-    .delete(`http://18.183.28.71:3000/user/deleteExpense/${userId}`, {
+    .delete(`http://35.78.100.99:3000/user/deleteExpense/${userId}`, {
       headers: { Authorization: token },
     })
     .then((response) => {
@@ -139,7 +139,7 @@ function removeItemFromScreen(userId) {
 async function payment(e) {
   const token = localStorage.getItem("token");
   const response = await axios.get(
-    "http://18.183.28.71:3000/purchase/premiummembership",
+    "http://35.78.100.99:3000/purchase/premiummembership",
     { headers: { Authorization: token } }
   );
   console.log(response);
@@ -162,7 +162,7 @@ async function payment(e) {
       console.log(response);
       axios
         .post(
-          "http://18.183.28.71:3000/purchase/updatetransactionstatus",
+          "http://35.78.100.99:3000/purchase/updatetransactionstatus",
           {
             order_id: options.order_id,
             payment_id: response.razorpay_payment_id,
@@ -257,7 +257,7 @@ async function getPageExpenses(page, limitper) {
   // console.log(Items_Per_Page);
   const token = localStorage.getItem("token");
   let response = await axios.post(
-    `http://18.183.28.71:3000/user/getExpenses/${page}`,
+    `http://35.78.100.99:3000/user/getExpenses/${page}`,
     { Items_Per_Page: Items_Per_Page },
     { headers: { Authorization: token } }
   );
@@ -294,7 +294,7 @@ async function getPremiumLeaderboard() {
   const token = localStorage.getItem("token");
   try {
     const response = await axios.get(
-      "http://18.183.28.71:3000/expense/premiums",
+      "http://35.78.100.99:3000/expense/premiums",
       {
         headers: { Authorization: token },
       }
@@ -357,5 +357,5 @@ function openUserExpenses(user) {
   //yet to be completed
   //if clicked gets detailed payment of individual users
   //which makes  a post req to the user id another route
-  // let response = await axios.post('http://18.183.28.71:3000/expense/leaderboard-user'
+  // let response = await axios.post('http://35.78.100.99:3000/expense/leaderboard-user'
 }
