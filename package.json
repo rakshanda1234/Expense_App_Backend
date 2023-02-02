@@ -1,11 +1,13 @@
 {
   "name": "expense_app_backend",
   "version": "1.0.0",
+  "private": "true",
   "description": "backend of expence tracker appp",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
   },
   "author": "rakshanda",
   "license": "ISC",
@@ -26,5 +28,12 @@
     "razorpay": "^2.8.4",
     "sequelize": "^6.28.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": " (https://github.com/rakshanda1234/Expense_App_Backend.git)"
   }
 }

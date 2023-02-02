@@ -83,6 +83,7 @@ exports.login = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
 function generateToken(id, name, ispremiumuser) {
   return jwt.sign({ userId: id, name: name, ispremiumuser }, process.env.TOKEN);
 }

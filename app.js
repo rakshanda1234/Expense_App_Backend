@@ -1,9 +1,10 @@
+const path = require("path");
 const express = require("express");
 const fs = require("fs");
 const https = require("https");
 
 const cors = require("cors");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 
@@ -41,6 +42,10 @@ app.use("/user", userRoutes);
 app.use("/expense", expenseRoutes);
 app.use("/purchase", purchaseRoutes);
 app.use("/password", ForgotPasswordRoutes);
+
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, `public/${req.url}`));
+});
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
