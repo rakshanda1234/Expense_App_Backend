@@ -31,7 +31,7 @@ dotenv.config();
 
 app.use(helmet());
 app.use(compression());
-// app.use(morgan("combined", { stream: accessLogStream }));
+app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(cors());
 app.use(userRoutes);
